@@ -24,15 +24,17 @@ This guide explains usage of ALDB, compatibility requirements for Alloy models, 
 ## Getting Started
 
 1. Download the latest JAR from the [releases](https://github.com/WatForm/aldb/releases) or clone this repo and build ALDB following the instructions in the [contributing guildlines](./CONTRIBUTING.md). Note that the master branch points to the latest, unstable, development version of ALDB.
+   
+2. Graphviz needs to be installed locally for visualization components. Graphviz can be downloaded [here](https://graphviz.org/download/). To check if graphviz has been successfully installed, entered `dot -v` in the command line.
 
-2. Run ALDB from the command line:
+3. Run ALDB from the command line:
     ```sh
     $ java -jar dist/aldb.jar
     ```
 
 ## Model and Configuration Format
 
-ALDB supports transition systems modelled in a certain style in Alloy. As such, there are certain signatures and predicates that are expected to exist, whose names can be stored in a custom configuration.
+ALDB supports transition systems modelled in a certain style in Alloy. As such, there are certain signatures and predicates that are expected to exist, whose names can be stored in a custom configuration. ALDB supports both models in .als format and in .dsh format. To load .dsh files, enter d or dash when prompted upon launching aldb.jar. 
 
 The configuration must be defined in YAML. It can be specified within a comment block in the model file (to be applied for that model only), or set via passing a separate YAML file to the `set conf` command.
 When using the `set conf` command, the configuration will last for the entire ALDB session.
@@ -95,6 +97,10 @@ Command | Description
 [step](#step) | Perform a state transition of n steps
 [trace](#trace) | Load a saved Alloy XML instance
 [until](#until) | Run until constraints are met
+[show](#show) | Print out the information of a specified state
+[goto](#goto) | Go to a specified state
+[force](#force) | Force a transition to be taken in a specified number of steps (Dash-specific)
+
 
 ### Detailed Descriptions
 
@@ -207,6 +213,15 @@ The `until [limit]` command will run several forward steps of the transition sys
 Specify the `limit` in order to constrain the search space. In other words, ALDB will only check up to `limit` state transitions, and if the constraints have not been satisfied by then, it will not check any further transitions. `limit` must be an integer >= 1. By default, limit = 10.
 
 ![image](https://user-images.githubusercontent.com/13455356/77835884-9a067880-7127-11ea-8808-16b692ee3ebe.png)
+
+#### goto 
+The `goto [state name]` command will take steps to go to the specified state from the initial state.
+
+#### show 
+The `show [state name]` command will print out information of the specified state.
+
+#### force 
+The `force [transition name] [max steps]` command will force a transition to be taken in a specified number of steps (Dash-specific). 
 
 ## Usage Example
 
