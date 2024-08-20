@@ -1,4 +1,0 @@
-stateSigName: State
-transitionRelationName: next
-initPredicateName: init
-additionalSigScopes: {}
